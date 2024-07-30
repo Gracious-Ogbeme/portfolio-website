@@ -9,6 +9,8 @@
 		<title>Gracious Ogbeme Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="keywords" content="Gracious Ogbeme, Gracious, Ogbeme, Data Analyst">
+		<meta name="description" content="Gracious Ogbeme is data analyst who loves digging into data to uncover insights that help businesses make informed decisions. I'm dedicated to refining raw data, finding clues, and extracting insights to make sound conclusions and drive decision-making processes.">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
@@ -124,19 +126,19 @@
 				   <div id="Contact">
 					<footer id="footer">
 						<section id="mailer">
-							<form method="post" action="#">
+							<form method="post" id="contactMe">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
+										<input type="text" name="sendername" id="sendername"  required/>
 									</div>
 									<div class="field">
 										<label for="email">Email</label>
-										<input type="text" name="email" id="email" />
+										<input type="text" name="senderemail" id="senderemail"  required/>
 									</div>
 									<div class="field">
 										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="3"></textarea>
+										<textarea name="message" id="message" rows="3" required></textarea>
 									</div>
 								</div>
 								<ul class="actions">
@@ -183,6 +185,45 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script type="text/javascript">
+				$('#contactMe').on('submit', function(event) {
+					event.preventDefault(); // prevent reload
+
+					var formData = new FormData(this);
+
+					formData.append('service_id', 'service_4dtsli6');
+					formData.append('template_id', 'template_jse0ltb');
+					formData.append('user_id', 'IDpHIy1kJ2xQ3e8lV');
+				
+					$.ajax('https://api.emailjs.com/api/v1.0/email/send-form', {
+						type: 'POST',
+						data: formData,
+						contentType: false, // auto-detection
+						processData: false // no need to parse formData to string
+					}).done(function() {
+						// alert('Your mail is sent!');
+						Swal.fire({
+							title: 'Message Sent!',
+							text: 'Thank you for Contacting Me... \n I will reach out Soon!',
+							icon: 'success',
+							allowOutsideClick: false,
+						}).then((result) => {
+							// contactMe
+							document.getElementById("contactMe").reset();							
+						});
+					}).fail(function(error) {
+						// alert('Oops... ' + JSON.stringify(error));
+						Swal.fire({
+							title: 'Message Not Sent!',
+							text: 'Message not Sent Error: ' + JSON.stringify(error),
+							icon: 'error',
+							allowOutsideClick: false,
+						});
+					});
+				});
+			</script>
+			
 
 	</body>
 </html>
